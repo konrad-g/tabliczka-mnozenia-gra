@@ -49,8 +49,7 @@ class GameBtns {
       return;
     }
     const btnValue = $(event.target).text();
-    const isCorrect = btnValue === this.correctAnswer;
-
+    const isCorrect = btnValue == this.correctAnswer;
     if (this.alreadyAnswered) {
       if (isCorrect) {
         this.alreadyCorrectlyAnswered = true;
@@ -63,23 +62,22 @@ class GameBtns {
     this.alreadyAnswered = true;
   }
 
-  getBtnByValue = (value) => {
-    return [this.btnAnswer1, this.btnAnswer2, this.btnAnswer3, this.btnAnswer4].find(btn => btn.text() === value);
-  }
-
   markButtons = () => {
-    const correctBtn = this.getBtnByValue(this.correctAnswer);
-    const incorrectBtns = [this.btnAnswer1, this.btnAnswer2, this.btnAnswer3, this.btnAnswer4].filter(btn => btn !== correctBtn);
-    correctBtn.addClass('btn-success');
+    const allButtons = [this.btnAnswer1, this.btnAnswer2, this.btnAnswer3, this.btnAnswer4]
+    const correctBtnIndex = allButtons.findIndex(btn => btn.text() == this.correctAnswer);
+    const correctBtn = allButtons[correctBtnIndex];
+    const incorrectBtns = allButtons.filter((btn, index) => index !== correctBtnIndex);
+
+    correctBtn.addClass('btn-outline-success');
     incorrectBtns.forEach(btn => {
-      btn.addClass('btn-danger');
+      btn.addClass('btn-outline-danger');
     });
   }
 
   removeButtonMarks = () => {
     [this.btnAnswer1, this.btnAnswer2, this.btnAnswer3, this.btnAnswer4].forEach(btn => {
-      btn.removeClass('btn-success');
-      btn.removeClass('btn-danger');
+      btn.removeClass('btn-outline-success');
+      btn.removeClass('btn-outline-danger');
     })
   }
 }

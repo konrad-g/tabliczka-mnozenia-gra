@@ -52,16 +52,26 @@ class GameScreen {
 
   onAnswer = (isCorrect) => {
 
-    $("#equation").text(`${multiplication.left} x ${multiplication.right} = ${multiplication.result}`);
+    $("#equation").text(`${this.currentMultiplication.left} x ${this.currentMultiplication.right} = ${this.currentMultiplication.result}`);
 
     if (isCorrect) {
       this.scoreGood++;
+
+      const potentialCorectIndicators = ["🎉","🥳","💪","😀","🙌"]
+      const correctIndicator = potentialCorectIndicators[Math.floor(Math.random() * potentialCorectIndicators.length)];
+      const potentialCorectTexts = ["Brawo!","Super!","Tak!","Ekstra!", "Dobrze!"]
+      const correctText = potentialCorectTexts[Math.floor(Math.random() * potentialCorectTexts.length)];
+      $('#answerResult').text(correctText + " " + correctIndicator)
       setTimeout(() => {
         this.nextRound();
       }, this.NEXT_ROUND_DELAY_MS);
     } else {
       this.scoreBad++;
       this.isWaitingForCorrectAnswer = true;
+
+      const potentialWrongIndicators = ["😿","😔","🥺","☹️","😟"]
+      const wrongIndicator = potentialWrongIndicators[Math.floor(Math.random() * potentialWrongIndicators.length)];
+      $('#answerResult').text(wrongIndicator)
     }
   }
 
@@ -75,6 +85,8 @@ class GameScreen {
   }
 
   nextRound = () => {
+    $('#answerResult').text("");
+    
     if (this.allMultiplications.length === 0) {
       this.onFinish();
     } else {
