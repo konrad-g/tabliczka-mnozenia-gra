@@ -31,7 +31,8 @@ class GameBtns {
 
   initRound = (correctAnswerMultiplication) => {
     document.activeElement.blur();
-    
+    document.body.focus();
+
     const correctAnswer = correctAnswerMultiplication.result;
 
     this.removeButtonMarks();
