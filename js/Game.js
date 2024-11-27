@@ -2,9 +2,6 @@ class Game {
 
   range = 100;
   
-  constructor() {
-  }
-
   hideAllScreens() {
     $('#screenWelcome').addClass("d-none");
     $('#screenGame').addClass("d-none");
@@ -26,12 +23,20 @@ class Game {
     $('#screenResults').removeClass("d-none");
   }
 
+  showResults = (scoreGood, scoreBad, timeStart) => {
+    this.showResultsScreen();
+    const resultsScreen = new ResultsScreen();
+    resultsScreen.init(scoreGood, scoreBad, timeStart);
+  }
+
   start() {
     this.showWelcomeScreen();
     const welcomeScreen = new WelcomeScreen();
     welcomeScreen.init((range) => {
       this.range = range;
       this.showGameScreen();
+      const game = new GameScreen();
+      game.init(range, this.showResults);
     });
   }
 }

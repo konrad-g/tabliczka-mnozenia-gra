@@ -4,7 +4,7 @@
   <head>
     <title>Tabliczka mnożenia - Gra</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="libs/bootstrap.min.css">
   </head>
   <body>
     <div id="screenWelcome" class="d-none container text-center py-5">
@@ -24,7 +24,7 @@
       <div class="fs-4 mb-2">Ile to:</div>
       <div class="display-5 mb-4">
         <span id="resultEmoji1"></span>
-        <span id="equation"></span>=<span id="equationResult"></span>
+        <span id="equation"></span>
         <span id="resultEmoji2"></span>
       </div>
       <div class="row row-cols-1 row-cols-sm-2 g-3 justify-content-center" style="max-width: 400px; margin: 0 auto;">
@@ -48,12 +48,12 @@
       <div>Dobrze:<span id="scoreGood"></span></div>
       <div>Źle:<span id="scoreBad"></span></div>
       <div>Twój czas:<span id="scoreTime"></span></div>
-      <div id="congrats1">💪GRATULUJE! ZNASZ JUŻ TABLICZKĘ MNOŻENIA!🥳</div>
-      <div id="congrats2">👏👏👏 BRAWO! 👏👏👏</div>
+      <div id="congrats1" class="d-none">💪GRATULUJE! ZNASZ JUŻ TABLICZKĘ MNOŻENIA!🥳</div>
+      <div id="congrats2" class="d-none">👏👏👏 BRAWO! 👏👏👏</div>
       <button id="btnPlayAgain">Zagraj ponownie</button>
     </div>
   </body>
-  <script src="js/jquery-3.7.1.min.js"></script>
+  <script src="libs/jquery-3.7.1.min.js"></script>
   <script src="js/GameScreen.js"></script>
   <script src="js/ResultsScreen.js"></script>
   <script src="js/WelcomeScreen.js"></script>
