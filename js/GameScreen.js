@@ -1,10 +1,16 @@
 class GameScreen {
 
+  NEXT_ROUND_DELAY_MS = 600;
+
   allMultiplications = []
+  allMultiplicationsInit = []
+  currentMultiplication
   onFinish
   scoreGood = 0
   scoreBad = 0
   timeStart
+  gameBtns
+  isWaitingForCorrectAnswer = false
 
   generateMultiplicationTable = () => {
     const table = [];
@@ -33,9 +39,38 @@ class GameScreen {
     this.onFinish = onFinish;
     this.timeStart = Date.now();
 
-    const multiplications = this.generateMultiplicationTable().filter(m => m.result <= range);
+    this.allMultiplicationsInit = this.generateMultiplicationTable();
+    const multiplications = this.allMultiplicationsInit.filter(m => m.result <= range);
     this.allMultiplications = multiplications;
 
+    this.gameBtns = new GameBtns();
+    const allAnswersInit = this.allMultiplicationsInit.map(m => m.result);
+    this.gameBtns.init(allAnswersInit, this.onAnswer, this.onCorrectAnswer);
+
+    this.nextRound();
+  }
+
+  onAnswer = (isCorrect) => {
+
+    $("#equation").text(`${multiplication.left} x ${multiplication.right} = ${multiplication.result}`);
+
+    if (isCorrect) {
+      this.scoreGood++;
+      setTimeout(() => {
+        this.nextRound();
+      }, this.NEXT_ROUND_DELAY_MS);
+    } else {
+      this.scoreBad++;
+      this.isWaitingForCorrectAnswer = true;
+    }
+  }
+
+  onCorrectAnswer = () => {
+    if (!this.isWaitingForCorrectAnswer) {
+      return;
+    }
+
+    this.isWaitingForCorrectAnswer = false;
     this.nextRound();
   }
 
@@ -44,8 +79,9 @@ class GameScreen {
       this.onFinish();
     } else {
       const multiplication = this.allMultiplications.pop();
+      this.currentMultiplication = multiplication;
       $("#equation").text(`${multiplication.left} x ${multiplication.right} =`);
-      
+      this.gameBtns.initRound(multiplication.result);
     }
   }
 }
