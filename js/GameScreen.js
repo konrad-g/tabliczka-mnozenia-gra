@@ -86,7 +86,7 @@ class GameScreen {
 
       this.currentMultiplication = multiplication;
       $("#equation").text(`${multiplication.left} x ${multiplication.right} =`);
-      this.gameBtns.initRound(multiplication.result);
+      this.gameBtns.initRound(multiplication);
     }
   }
 }

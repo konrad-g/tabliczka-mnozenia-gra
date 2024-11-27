@@ -11,7 +11,7 @@ class ResultsScreen {
       if (isPerfectScore) {
         $('#congrats2').removeClass("d-none");
         
-        const maxMsPerAnswer = 10_000
+        const maxMsPerAnswer = 5_000
         const avgAnswerTime = gameTimeMs / (scoreGood + scoreBad);
         if (avgAnswerTime < maxMsPerAnswer) {
           $('#congrats1').removeClass("d-none");

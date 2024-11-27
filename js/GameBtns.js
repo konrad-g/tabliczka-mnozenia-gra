@@ -29,14 +29,21 @@ class GameBtns {
     this.btnAnswer4.on('click', this.onBtnClick);
   }
 
-  initRound = (correctAnswer) => {
+  initRound = (correctAnswerMultiplication) => {
+    const correctAnswer = correctAnswerMultiplication.result;
+
     this.removeButtonMarks();
     this.alreadyAnswered = false;
     this.alreadyCorrectlyAnswered = false;
     this.correctAnswer = correctAnswer;
 
-    const answers = this.allAnswersInit.slice().filter(answer => answer !== correctAnswer).sort(this.sortRandom);
-    const roundAnswers = [correctAnswer, ...answers.slice(0, 3)].sort(MathUtils.sortRandom);
+    let roundAnswers = []
+
+    if (correctAnswerMultiplication.left == 1 || correctAnswerMultiplication.right == 1) {
+      roundAnswers = MathUtils.generateRoundValue(correctAnswer, [1])
+    } else {
+      roundAnswers = MathUtils.generateRoundValue(correctAnswer, [])
+    }
     
     this.btnAnswer1.text(roundAnswers[0]);
     this.btnAnswer2.text(roundAnswers[1]);
@@ -57,12 +64,12 @@ class GameBtns {
       }
     } else {
       this.onAnswer(isCorrect);
-      this.markButtons()
+      this.markButtons(isCorrect)
       this.alreadyAnswered = true;
     }
   }
 
-  markButtons = () => {
+  markButtons = (isCorrect) => {
     const allButtons = [this.btnAnswer1, this.btnAnswer2, this.btnAnswer3, this.btnAnswer4]
     const correctBtnIndex = allButtons.findIndex(btn => btn.text() == this.correctAnswer);
     const correctBtn = allButtons[correctBtnIndex];
@@ -70,7 +77,11 @@ class GameBtns {
 
     correctBtn.addClass('btn-outline-success');
     incorrectBtns.forEach(btn => {
-      btn.addClass('btn-outline-danger');
+      if (!isCorrect) {
+        btn.addClass('btn-outline-danger');
+      } else {
+        btn.addClass('btn-outline-secondary');
+      }
     });
   }
 
@@ -78,6 +89,7 @@ class GameBtns {
     [this.btnAnswer1, this.btnAnswer2, this.btnAnswer3, this.btnAnswer4].forEach(btn => {
       btn.removeClass('btn-outline-success');
       btn.removeClass('btn-outline-danger');
+      btn.removeClass('btn-outline-secondary');
     })
   }
 }
