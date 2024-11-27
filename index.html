@@ -15,20 +15,33 @@
         <button id="btnStartGame30" class="btn btn-outline-primary btn-lg px-4">do 30</button>
         <button id="btnStartGame100" class="btn btn-outline-primary btn-lg px-4">do 100</button>
       </div>
-    </div>
-    <div id="screenGame" class="d-none">
-      <div>Ile to:</div>
       <div>
+        <a class="btn btn-link text-decoration-none mt-5" target="_blank" href="https://github.com/konrad-g/tabliczka-mnozenia-gra">Link do kodu źródłowego.</a>
+        <div class="mt-5 text-muted small text-center">Konrad Gadzinowski © 2024</div>
+      </div>
+    </div>
+    <div id="screenGame" class="d-none container text-center py-5">
+      <div class="fs-4 mb-2">Ile to:</div>
+      <div class="display-5 mb-4">
         <span id="resultEmoji1"></span>
         <span id="equation"></span>=<span id="equationResult"></span>
         <span id="resultEmoji2"></span>
       </div>
-      <div>
-        <button id="btnAnswer1"></button>
-        <button id="btnAnswer2"></button>
-        <button id="btnAnswer3"></button>
-        <button id="btnAnswer4"></button>
+      <div class="row row-cols-1 row-cols-sm-2 g-3 justify-content-center" style="max-width: 400px; margin: 0 auto;">
+        <div class="col">
+          <button id="btnAnswer1" class="btn btn-lg btn-outline-primary w-100 py-3"></button>
+        </div>
+        <div class="col">
+          <button id="btnAnswer2" class="btn btn-lg btn-outline-primary w-100 py-3"></button>
+        </div>
+        <div class="col">
+          <button id="btnAnswer3" class="btn btn-lg btn-outline-primary w-100 py-3"></button>
+        </div>
+        <div class="col">
+          <button id="btnAnswer4" class="btn btn-lg btn-outline-primary w-100 py-3"></button>
+        </div>
       </div>
+      <div id="answerResult" class="mt-2 display-6 text-center"></div>
     </div>
     <div id="screenResults" class="d-none">
       <div>Twój wynik:</div>
