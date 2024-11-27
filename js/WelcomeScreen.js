@@ -1,9 +1,9 @@
 class WelcomeScreen {
   init = (onGameStart) => {
-    document.getElementById('btnStartGame30').addEventListener('click', () => {
+    $('#btnStartGame30').on('click', () => {
       onGameStart(30);
     });
-    document.getElementById('btnStartGame100').addEventListener('click', () => {
+    $('#btnStartGame100').on('click', () => {
       onGameStart(100);
     });
   }

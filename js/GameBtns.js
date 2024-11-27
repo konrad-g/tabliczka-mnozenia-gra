@@ -35,8 +35,8 @@ class GameBtns {
     this.alreadyCorrectlyAnswered = false;
     this.correctAnswer = correctAnswer;
 
-    const answers = this.allAnswersInit.slice().sort(() => Math.random() > 0.5);
-    const roundAnswers = [correctAnswer, ...answers.slice(0, 3)];
+    const answers = this.allAnswersInit.slice().sort(this.sortRandom);
+    const roundAnswers = [correctAnswer, ...answers.slice(0, 3)].sort(MathUtils.sortRandom);
     
     this.btnAnswer1.text(roundAnswers[0]);
     this.btnAnswer2.text(roundAnswers[1]);
@@ -58,8 +58,8 @@ class GameBtns {
     } else {
       this.onAnswer(isCorrect);
       this.markButtons()
+      this.alreadyAnswered = true;
     }
-    this.alreadyAnswered = true;
   }
 
   markButtons = () => {

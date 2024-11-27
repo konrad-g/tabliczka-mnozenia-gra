@@ -43,17 +43,42 @@
       </div>
       <div id="answerResult" class="mt-3 display-6 text-center"></div>
     </div>
-    <div id="screenResults" class="d-none">
-      <div>Twój wynik:</div>
-      <div>Dobrze:<span id="scoreGood"></span></div>
-      <div>Źle:<span id="scoreBad"></span></div>
-      <div>Twój czas:<span id="scoreTime"></span></div>
-      <div id="congrats1" class="d-none">💪GRATULUJE! ZNASZ JUŻ TABLICZKĘ MNOŻENIA!🥳</div>
-      <div id="congrats2" class="d-none">👏👏👏 BRAWO! 👏👏👏</div>
-      <button id="btnPlayAgain">Zagraj ponownie</button>
-    </div>
+    <div id="screenResults" class="d-none container text-center py-5">
+      <div class="display-6 mb-4">Twój wynik:</div>
+      
+      <div class="row justify-content-center mb-4">
+        <div class="col-md-6">
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="fs-5 mb-3">
+                Dobrze: <span id="scoreGood" class="text-success fw-bold"></span>
+              </div>
+              <div class="fs-5 mb-3">
+                Źle: <span id="scoreBad" class="text-danger fw-bold"></span>
+              </div>
+              <div class="fs-5">
+                Twój czas: <span id="scoreTime" class="text-primary fw-bold"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+      <div id="congrats1" class="d-none alert alert-success display-6 mb-4">
+        💪 GRATULUJE! ZNASZ JUŻ TABLICZKĘ MNOŻENIA! 🥳
+      </div>
+      
+      <div id="congrats2" class="d-none alert alert-success display-6 mb-4">
+        👏👏👏 BRAWO! 👏👏👏
+      </div>
+     
+      <button id="btnPlayAgain" class="btn btn-primary btn-lg px-4">
+        Zagraj ponownie
+      </button>
+     </div>
   </body>
   <script src="libs/jquery-3.7.1.min.js"></script>
+  <script src="js/MathUtils.js"></script>
   <script src="js/GameScreen.js"></script>
   <script src="js/GameBtns.js"></script>
   <script src="js/ResultsScreen.js"></script>

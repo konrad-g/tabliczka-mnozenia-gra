@@ -14,25 +14,18 @@ class GameScreen {
 
   generateMultiplicationTable = () => {
     const table = [];
-    const seen = new Set();
     
     for (let i = 1; i <= 10; i++) {
       for (let j = 1; j <= 10; j++) {
-        // Create a unique key for each multiplication (smaller number first)
-        const key = [Math.min(i, j), Math.max(i, j)].join('x');
-        
-        if (!seen.has(key)) {
-          table.push({
-            left: Math.min(i, j),
-            right: Math.max(i, j),
-            result: i * j
-          });
-          seen.add(key);
-        }
+        table.push({
+          left: Math.min(i, j),
+          right: Math.max(i, j),
+          result: i * j
+        });
       }
     }
     
-    return table;
+    return table.sort(MathUtils.sortRandom);
   }
   
   init = (range, onFinish) => {
@@ -42,7 +35,6 @@ class GameScreen {
     this.allMultiplicationsInit = this.generateMultiplicationTable();
     const multiplications = this.allMultiplicationsInit.filter(m => m.result <= range);
     this.allMultiplications = multiplications;
-
     this.gameBtns = new GameBtns();
     const allAnswersInit = this.allMultiplicationsInit.map(m => m.result);
     this.gameBtns.init(allAnswersInit, this.onAnswer, this.onCorrectAnswer);
@@ -86,11 +78,19 @@ class GameScreen {
 
   nextRound = () => {
     $('#answerResult').text("");
-    
+
     if (this.allMultiplications.length === 0) {
       this.onFinish();
     } else {
       const multiplication = this.allMultiplications.pop();
+
+      // Randomly revert left and right
+      if (Math.random() > 0.5) {
+        const tempValue = multiplication.left;
+        multiplication.left = multiplication.right;
+        multiplication.right = tempValue;
+      }
+      
       this.currentMultiplication = multiplication;
       $("#equation").text(`${multiplication.left} x ${multiplication.right} =`);
       this.gameBtns.initRound(multiplication.result);

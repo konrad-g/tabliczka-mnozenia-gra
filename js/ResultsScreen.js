@@ -18,8 +18,7 @@ class ResultsScreen {
         }
       }
 
-
-      $('#btnPlayAgain').addEventListener('click', () => {
+      $('#btnPlayAgain').on('click', () => {
         location.reload();
       })
     }
