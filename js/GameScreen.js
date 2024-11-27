@@ -80,17 +80,10 @@ class GameScreen {
     $('#answerResult').text("");
 
     if (this.allMultiplications.length === 0) {
-      this.onFinish();
+      this.onFinish(this.scoreGood, this.scoreBad, this.timeStart);
     } else {
       const multiplication = this.allMultiplications.pop();
 
-      // Randomly revert left and right
-      if (Math.random() > 0.5) {
-        const tempValue = multiplication.left;
-        multiplication.left = multiplication.right;
-        multiplication.right = tempValue;
-      }
-      
       this.currentMultiplication = multiplication;
       $("#equation").text(`${multiplication.left} x ${multiplication.right} =`);
       this.gameBtns.initRound(multiplication.result);

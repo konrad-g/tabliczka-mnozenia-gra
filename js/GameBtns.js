@@ -35,7 +35,7 @@ class GameBtns {
     this.alreadyCorrectlyAnswered = false;
     this.correctAnswer = correctAnswer;
 
-    const answers = this.allAnswersInit.slice().sort(this.sortRandom);
+    const answers = this.allAnswersInit.slice().filter(answer => answer !== correctAnswer).sort(this.sortRandom);
     const roundAnswers = [correctAnswer, ...answers.slice(0, 3)].sort(MathUtils.sortRandom);
     
     this.btnAnswer1.text(roundAnswers[0]);
