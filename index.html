@@ -3,17 +3,20 @@
 <html>
   <head>
     <title>Tabliczka mnożenia - Gra</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
   </head>
   <body>
-    <div id="screenWelcome" class="hide">
-      <h1>Tabliczka mnożenia - Gra</h1>
-      <div>Trening czyni mistrza! Nie poddawaj się! 💪</div>
-      <div>Wybierz zakres:</div>
-      <button id="btnStartGame30">do 30</button>
-      <button id="btnStartGame100">do 100</button>
+    <div id="screenWelcome" class="d-none container text-center py-5">
+      <h1 class="display-4 mb-4">Tabliczka mnożenia - Gra</h1>
+      <div class="lead mb-3">Trening czyni mistrza! Nie poddawaj się! 💪</div>
+      <div class="fs-5 mb-4">Wybierz zakres:</div>
+      <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+        <button id="btnStartGame30" class="btn btn-outline-primary btn-lg px-4">do 30</button>
+        <button id="btnStartGame100" class="btn btn-outline-primary btn-lg px-4">do 100</button>
+      </div>
     </div>
-    <div id="screenGame" class="hide">
+    <div id="screenGame" class="d-none">
       <div>Ile to:</div>
       <div>
         <span id="resultEmoji1"></span>
@@ -27,16 +30,21 @@
         <button id="btnAnswer4"></button>
       </div>
     </div>
-    <div id="screenResults" class="hide">
+    <div id="screenResults" class="d-none">
       <div>Twój wynik:</div>
       <div>Dobrze:<span id="scoreGood"></span></div>
       <div>Źle:<span id="scoreBad"></span></div>
       <div>Twój czas:<span id="scoreTime"></span></div>
       <div id="congrats1">💪GRATULUJE! ZNASZ JUŻ TABLICZKĘ MNOŻENIA!🥳</div>
       <div id="congrats2">👏👏👏 BRAWO! 👏👏👏</div>
+      <button id="btnPlayAgain">Zagraj ponownie</button>
     </div>
   </body>
-  <script src="Game.js"></script>
+  <script src="js/jquery-3.7.1.min.js"></script>
+  <script src="js/GameScreen.js"></script>
+  <script src="js/ResultsScreen.js"></script>
+  <script src="js/WelcomeScreen.js"></script>
+  <script src="js/Game.js"></script>
   <script>
      const game = new Game();
       game.start();
