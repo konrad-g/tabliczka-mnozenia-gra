@@ -30,6 +30,8 @@ class GameBtns {
   }
 
   initRound = (correctAnswerMultiplication) => {
+    document.activeElement.blur();
+    
     const correctAnswer = correctAnswerMultiplication.result;
 
     this.removeButtonMarks();
