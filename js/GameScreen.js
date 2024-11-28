@@ -18,8 +18,8 @@ class GameScreen {
     for (let i = 1; i <= 10; i++) {
       for (let j = 1; j <= 10; j++) {
         table.push({
-          left: Math.min(i, j),
-          right: Math.max(i, j),
+          left: i,
+          right: j,
           result: i * j
         });
       }
