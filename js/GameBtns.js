@@ -78,8 +78,12 @@ class GameBtns {
     const correctBtn = allButtons[correctBtnIndex];
     const incorrectBtns = allButtons.filter((btn, index) => index !== correctBtnIndex);
 
-    correctBtn.addClass('btn-outline-success');
+    correctBtn.addClass('btn-success');
+    correctBtn.removeClass('btn-outline-primary');
+
     incorrectBtns.forEach(btn => {
+      btn.removeClass('btn-outline-primary');
+
       if (!isCorrect) {
         btn.addClass('btn-outline-danger');
       } else {
@@ -90,9 +94,10 @@ class GameBtns {
 
   removeButtonMarks = () => {
     [this.btnAnswer1, this.btnAnswer2, this.btnAnswer3, this.btnAnswer4].forEach(btn => {
-      btn.removeClass('btn-outline-success');
+      btn.removeClass('btn-success');
       btn.removeClass('btn-outline-danger');
       btn.removeClass('btn-outline-secondary');
+      btn.addClass('btn-outline-primary');
     })
   }
 }

@@ -1,0 +1,29 @@
+.btn-outline-primary:hover {
+  color: var(--bs-primary) !important;
+  background-color: transparent !important;
+  border-color: var(--bs-primary) !important;
+}
+
+.btn-outline-danger:hover,
+.btn-outline-danger:active,
+.btn-outline-danger:focus {
+    color: var(--bs-danger) !important;
+    background-color: transparent !important;
+    border-color: var(--bs-danger) !important;
+}
+
+.btn-outline-secondary:hover,
+.btn-outline-secondary:active,
+.btn-outline-secondary:focus {
+    color: var(--bs-secondary) !important;
+    background-color: transparent !important;
+    border-color: var(--bs-secondary) !important;
+}
+
+.btn-outline-success:hover,
+.btn-outline-success:active,
+.btn-outline-success:focus {
+    color: var(--bs-success) !important;
+    background-color: transparent !important;
+    border-color: var(--bs-success) !important;
+}
