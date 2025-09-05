@@ -16,6 +16,9 @@ class GameScreen {
   totalQuestionsCount = 0
   currentQuestionNumber = 0
 
+  confettiCanvas = null
+  confetti
+
   generateMultiplicationTable = () => {
     const table = [];
     
@@ -48,7 +51,28 @@ class GameScreen {
     const allAnswersInit = this.allMultiplicationsInit.map(m => m.result);
     this.gameBtns.init(allAnswersInit, this.onAnswer, this.onCorrectAnswer);
 
+    this.initConfetti()
+
     this.nextRound();
+  }
+
+  initConfetti = () => {
+    this.confettiCanvas = document.createElement('canvas');
+    document.body.appendChild(this.confettiCanvas);
+    Object.assign(this.confettiCanvas.style, {
+      position: "absolute",
+      bottom: "0",
+      left: "50%",
+      transform: "translateX(-50%)",
+      width: "100%",
+      height: "100vh",
+      pointerEvents: "none",
+    });
+
+    this.confetti = confetti.create(this.confettiCanvas, {
+      resize: true,
+      useWorker: true
+    });
   }
 
   updateProgressCounter = () => {
@@ -69,6 +93,14 @@ class GameScreen {
       const potentialCorectTexts = ["Brawo!","Super!","Tak!","Ekstra!", "Dobrze!"]
       const correctText = potentialCorectTexts[Math.floor(Math.random() * potentialCorectTexts.length)];
       $('#answerResult').text(correctText + " " + correctIndicator)
+      
+      this.confetti({
+        particleCount: 400,
+        spread: 160,
+        gravity: 3, 
+        ticks: 250, 
+      });
+      
       setTimeout(() => {
         this.nextRound();
       }, this.NEXT_ROUND_DELAY_MS);
