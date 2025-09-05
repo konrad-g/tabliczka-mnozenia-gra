@@ -42,11 +42,12 @@ class GameScreen {
     this.progressCounter = document.querySelector("#progressCounter")
 
     this.allMultiplicationsInit = this.generateMultiplicationTable();
-    this.totalQuestionsCount = this.allMultiplicationsInit.length + 1
     this.currentQuestionNumber = 1
 
     const multiplications = this.allMultiplicationsInit.filter(m => m.result <= range);
     this.allMultiplications = multiplications;
+    this.totalQuestionsCount = this.allMultiplications.length + 1
+
     this.gameBtns = new GameBtns();
     const allAnswersInit = this.allMultiplicationsInit.map(m => m.result);
     this.gameBtns.init(allAnswersInit, this.onAnswer, this.onCorrectAnswer);
