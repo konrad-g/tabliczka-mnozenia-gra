@@ -12,11 +12,15 @@ class GameScreen {
   gameBtns
   isWaitingForCorrectAnswer = false
 
+  progressCounter
+  totalQuestionsCount = 0
+  currentQuestionNumber = 0
+
   generateMultiplicationTable = () => {
     const table = [];
     
-    for (let i = 1; i <= 10; i++) {
-      for (let j = 1; j <= 10; j++) {
+    for (let i = 2; i <= 9; i++) {
+      for (let j = 2; j <= 9; j++) {
         table.push({
           left: i,
           right: j,
@@ -32,7 +36,12 @@ class GameScreen {
     this.onFinish = onFinish;
     this.timeStart = Date.now();
 
+    this.progressCounter = document.querySelector("#progressCounter")
+
     this.allMultiplicationsInit = this.generateMultiplicationTable();
+    this.totalQuestionsCount = this.allMultiplicationsInit.length + 1
+    this.currentQuestionNumber = 1
+
     const multiplications = this.allMultiplicationsInit.filter(m => m.result <= range);
     this.allMultiplications = multiplications;
     this.gameBtns = new GameBtns();
@@ -42,9 +51,15 @@ class GameScreen {
     this.nextRound();
   }
 
+  updateProgressCounter = () => {
+    this.progressCounter.innerHTML = this.currentQuestionNumber + "/" + this.totalQuestionsCount
+  }
+
   onAnswer = (isCorrect) => {
 
     $("#equation").text(`${this.currentMultiplication.left} x ${this.currentMultiplication.right} = ${this.currentMultiplication.result}`);
+
+    this.currentQuestionNumber++;
 
     if (isCorrect) {
       this.scoreGood++;
@@ -82,6 +97,8 @@ class GameScreen {
     if (this.allMultiplications.length === 0) {
       this.onFinish(this.scoreGood, this.scoreBad, this.timeStart);
     } else {
+      this.updateProgressCounter()
+
       const multiplication = this.allMultiplications.pop();
 
       this.currentMultiplication = multiplication;
