@@ -46,7 +46,7 @@ class GameScreen {
 
     const multiplications = this.allMultiplicationsInit.filter(m => m.result <= range);
     this.allMultiplications = multiplications;
-    this.totalQuestionsCount = this.allMultiplications.length + 1
+    this.totalQuestionsCount = this.allMultiplications.length
 
     this.gameBtns = new GameBtns();
     const allAnswersInit = this.allMultiplicationsInit.map(m => m.result);
