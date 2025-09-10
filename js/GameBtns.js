@@ -1,9 +1,7 @@
 class GameBtns {
 
-  btnAnswer1
-  btnAnswer2
-  btnAnswer3
-  btnAnswer4
+  inputAnswer
+  btnNext
 
   correctAnswer
   allAnswersInit 
@@ -18,15 +16,11 @@ class GameBtns {
     this.onAnswer = onAnswer;
     this.onCorrectAnswer = onCorrectAnswer;
 
-    this.btnAnswer1 = $('#btnAnswer1')
-    this.btnAnswer2 = $('#btnAnswer2')
-    this.btnAnswer3 = $('#btnAnswer3')
-    this.btnAnswer4 = $('#btnAnswer4')
+    this.inputAnswer = $('#inputAnswer')
+    this.btnNext = $('#btnNext')
 
-    this.btnAnswer1.on('click', this.onBtnClick);
-    this.btnAnswer2.on('click', this.onBtnClick);
-    this.btnAnswer3.on('click', this.onBtnClick);
-    this.btnAnswer4.on('click', this.onBtnClick);
+    this.inputAnswer.on('input', this.onInputChange);
+    this.btnNext.on('click', this.onBtnClick);
   }
 
   initRound = (correctAnswerMultiplication) => {
@@ -39,27 +33,26 @@ class GameBtns {
     this.alreadyAnswered = false;
     this.alreadyCorrectlyAnswered = false;
     this.correctAnswer = correctAnswer;
+    this.inputAnswer.val('');
+    this.inputAnswer.focus();
+  }
 
-    let roundAnswers = []
-
-    if (correctAnswerMultiplication.left == 1 || correctAnswerMultiplication.right == 1) {
-      roundAnswers = MathUtils.generateRoundValue(correctAnswer, [1])
-    } else {
-      roundAnswers = MathUtils.generateRoundValue(correctAnswer, [])
+  onInputChange = (event) => {
+    const inputValue = event.target.value;
+    const isCorrect = inputValue == this.correctAnswer;
+    if (isCorrect) {
+      this.onBtnClick(event);
     }
-    
-    this.btnAnswer1.text(roundAnswers[0]);
-    this.btnAnswer2.text(roundAnswers[1]);
-    this.btnAnswer3.text(roundAnswers[2]);
-    this.btnAnswer4.text(roundAnswers[3]);
   }
 
   onBtnClick = (event) => {
     if (this.alreadyCorrectlyAnswered) {
       return;
     }
-    const btnValue = $(event.target).text();
-    const isCorrect = btnValue == this.correctAnswer;
+
+    const answer = this.inputAnswer.val();
+    const isCorrect = answer == this.correctAnswer;
+
     if (this.alreadyAnswered) {
       if (isCorrect) {
         this.alreadyCorrectlyAnswered = true;
@@ -73,31 +66,27 @@ class GameBtns {
   }
 
   markButtons = (isCorrect) => {
-    const allButtons = [this.btnAnswer1, this.btnAnswer2, this.btnAnswer3, this.btnAnswer4]
-    const correctBtnIndex = allButtons.findIndex(btn => btn.text() == this.correctAnswer);
-    const correctBtn = allButtons[correctBtnIndex];
-    const incorrectBtns = allButtons.filter((btn, index) => index !== correctBtnIndex);
 
-    correctBtn.addClass('btn-success');
-    correctBtn.removeClass('btn-outline-primary');
+    this.inputAnswer.val(this.correctAnswer);
+    this.inputAnswer.prop('disabled', true);
 
-    incorrectBtns.forEach(btn => {
-      btn.removeClass('btn-outline-primary');
-
-      if (!isCorrect) {
-        btn.addClass('btn-outline-danger');
-      } else {
-        btn.addClass('btn-outline-secondary');
-      }
-    });
+    if (isCorrect) {
+      this.inputAnswer.addClass('is-valid');
+      this.btnNext.addClass('btn-success');
+    } else{
+      this.inputAnswer.addClass('is-invalid');
+      this.btnNext.addClass('btn-outline-danger');
+    }
   }
 
   removeButtonMarks = () => {
-    [this.btnAnswer1, this.btnAnswer2, this.btnAnswer3, this.btnAnswer4].forEach(btn => {
-      btn.removeClass('btn-success');
-      btn.removeClass('btn-outline-danger');
-      btn.removeClass('btn-outline-secondary');
-      btn.addClass('btn-outline-primary');
-    })
+    this.btnNext.removeClass('btn-success');
+    this.btnNext.removeClass('btn-outline-danger');
+    this.btnNext.removeClass('btn-outline-secondary');
+    this.btnNext.addClass('btn-primary');
+
+    this.inputAnswer.removeClass('is-valid');
+    this.inputAnswer.removeClass('is-invalid');
+    this.inputAnswer.prop('disabled', false);
   }
 }

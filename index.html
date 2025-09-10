@@ -34,19 +34,17 @@
         <span id="equation"></span>
         <span id="resultEmoji2"></span>
       </div>
-      <div class="row row-cols-1 row-cols-sm-2 g-3 justify-content-center" style="max-width: 400px; margin: 0 auto;">
-        <div class="col">
-          <button id="btnAnswer1" class="btn btn-lg btn-outline-primary w-100 py-3"></button>
-        </div>
-        <div class="col">
-          <button id="btnAnswer2" class="btn btn-lg btn-outline-primary w-100 py-3"></button>
-        </div>
-        <div class="col">
-          <button id="btnAnswer3" class="btn btn-lg btn-outline-primary w-100 py-3"></button>
-        </div>
-        <div class="col">
-          <button id="btnAnswer4" class="btn btn-lg btn-outline-primary w-100 py-3"></button>
-        </div>
+      <div class="input-group" style="max-width: 400px; margin: 0 auto;">
+        <input
+          id="inputAnswer"
+          type="number" 
+          inputmode="numeric" 
+          pattern="[0-9]*" 
+          step="1" 
+          class="form-control form-control-lg" 
+          placeholder="Odpowiedź"
+        />
+        <button id="btnNext" class="btn btn-primary btn-lg" type="button">→</button>
       </div>
       <div id="answerResult" class="mt-3 display-6 text-center"></div>
     </div>
