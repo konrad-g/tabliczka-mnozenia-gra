@@ -68,7 +68,6 @@ class GameBtns {
   markButtons = (isCorrect) => {
 
     this.inputAnswer.val(this.correctAnswer);
-    this.inputAnswer.prop('disabled', true);
 
     if (isCorrect) {
       this.inputAnswer.addClass('is-valid');
@@ -87,6 +86,5 @@ class GameBtns {
 
     this.inputAnswer.removeClass('is-valid');
     this.inputAnswer.removeClass('is-invalid');
-    this.inputAnswer.prop('disabled', false);
   }
 }
