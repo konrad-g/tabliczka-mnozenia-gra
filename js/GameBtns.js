@@ -54,10 +54,8 @@ class GameBtns {
     const isCorrect = answer == this.correctAnswer;
 
     if (this.alreadyAnswered) {
-      if (isCorrect) {
-        this.alreadyCorrectlyAnswered = true;
-        this.onCorrectAnswer();
-      }
+      this.alreadyCorrectlyAnswered = true;
+      this.onCorrectAnswer();
     } else {
       this.onAnswer(isCorrect);
       this.markButtons(isCorrect)
