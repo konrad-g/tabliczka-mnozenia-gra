@@ -1,5 +1,7 @@
 class GameBtns {
 
+  TIMEOUT_NEXT_MS = 1500
+
   inputAnswer
   btnNext
 
@@ -9,6 +11,7 @@ class GameBtns {
   onCorrectAnswer
   alreadyAnswered = false
   alreadyCorrectlyAnswered = false
+  nextTimeout
 
   init = (allAnswersInit, onAnswer, onCorrectAnswer) => {
     // Remove duplicates from allAnswersInit
@@ -21,6 +24,7 @@ class GameBtns {
 
     this.inputAnswer.on('input', this.onInputChange);
     this.btnNext.on('click', this.onBtnClick);
+    clearTimeout(this.nextTimeout);
   }
 
   initRound = (correctAnswerMultiplication) => {
@@ -35,12 +39,21 @@ class GameBtns {
     this.correctAnswer = correctAnswer;
     this.inputAnswer.val('');
     this.inputAnswer.focus();
+
+    clearTimeout(this.nextTimeout);
   }
 
   onInputChange = (event) => {
+    if (this.alreadyAnswered) {
+      this.inputAnswer.val(this.correctAnswer);
+      return;
+    }
+
     const inputValue = event.target.value;
+    const isPartiallyIncorrect = inputValue?.toString().trim().length > 0 && !this.correctAnswer.toString().startsWith(inputValue);
     const isCorrect = inputValue == this.correctAnswer;
-    if (isCorrect) {
+
+    if (isCorrect || isPartiallyIncorrect) {
       this.onBtnClick(event);
     }
   }
@@ -60,6 +73,10 @@ class GameBtns {
       this.onAnswer(isCorrect);
       this.markButtons(isCorrect)
       this.alreadyAnswered = true;
+      clearTimeout(this.nextTimeout);
+      this.nextTimeout = setTimeout(() => {
+        this.onBtnClick(event);
+      }, this.TIMEOUT_NEXT_MS);
     }
   }
 
