@@ -1,18 +1,21 @@
 class GameBtns {
 
   TIMEOUT_NEXT_MS = 1500
+  TIMEOUT_ON_WRONG_ANSWER_MS = 1000
 
   inputAnswer
   btnNext
-
+  
   correctAnswer
   allAnswersInit 
   onAnswer 
   onCorrectAnswer
   alreadyAnswered = false
   alreadyCorrectlyAnswered = false
+  
   nextTimeout
-
+  timeoutOnBtnClick
+  
   init = (allAnswersInit, onAnswer, onCorrectAnswer) => {
     // Remove duplicates from allAnswersInit
     this.allAnswersInit = [...new Set(allAnswersInit)];
@@ -44,6 +47,8 @@ class GameBtns {
   }
 
   onInputChange = (event) => {
+    clearTimeout(this.timeoutOnBtnClick);
+
     if (this.alreadyAnswered) {
       this.inputAnswer.val(this.correctAnswer);
       return;
@@ -53,7 +58,13 @@ class GameBtns {
     const isPartiallyIncorrect = inputValue?.toString().trim().length > 0 && !this.correctAnswer.toString().startsWith(inputValue);
     const isCorrect = inputValue == this.correctAnswer;
 
-    if (isCorrect || isPartiallyIncorrect) {
+    if (isPartiallyIncorrect) {
+      this.timeoutOnBtnClick = setTimeout(() => {
+        this.onBtnClick(event);
+      }, this.TIMEOUT_ON_WRONG_ANSWER_MS)
+    }
+
+    if (isCorrect) {
       this.onBtnClick(event);
     }
   }
