@@ -1,6 +1,7 @@
 class ResultsScreen {
   
-    init(scoreGood, scoreBad, timeStart) {
+    init(scoreGood, scoreBad, timeStart, operation) {
+      $('#congratsOperation').text(operation === 'division' ? 'DZIELENIE' : 'TABLICZKĘ MNOŻENIA');
       $('#scoreGood').text(scoreGood);
       $('#scoreBad').text(scoreBad);
       const gameTimeMs = Date.now() - timeStart;

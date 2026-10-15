@@ -1,6 +1,7 @@
 class Game {
 
   range = 100;
+  operation = 'multiplication';
   
   hideAllScreens() {
     $('#screenWelcome').addClass("d-none");
@@ -26,17 +27,18 @@ class Game {
   showResults = (scoreGood, scoreBad, timeStart) => {
     this.showResultsScreen();
     const resultsScreen = new ResultsScreen();
-    resultsScreen.init(scoreGood, scoreBad, timeStart);
+    resultsScreen.init(scoreGood, scoreBad, timeStart, this.operation);
   }
 
   start() {
     this.showWelcomeScreen();
     const welcomeScreen = new WelcomeScreen();
-    welcomeScreen.init((range) => {
+    welcomeScreen.init((range, operation) => {
       this.range = range;
+      this.operation = operation;
       this.showGameScreen();
       const game = new GameScreen();
-      game.init(range, this.showResults);
+      game.init(range, operation, this.showResults);
     });
   }
 }

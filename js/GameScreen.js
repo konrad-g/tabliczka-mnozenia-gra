@@ -27,24 +27,43 @@ class GameScreen {
         table.push({
           left: i,
           right: j,
-          result: i * j
+          result: i * j,
+          operator: 'x'
         });
       }
     }
-    
+
     return table.sort(MathUtils.sortRandom);
   }
-  
-  init = (range, onFinish) => {
+
+  generateDivisionTable = () => {
+    const table = [];
+
+    for (let i = 2; i <= 9; i++) {
+      for (let j = 2; j <= 9; j++) {
+        table.push({
+          left: i * j,
+          right: j,
+          result: i,
+          operator: ':'
+        });
+      }
+    }
+
+    return table.sort(MathUtils.sortRandom);
+  }
+
+  init = (range, operation, onFinish) => {
     this.onFinish = onFinish;
     this.timeStart = Date.now();
 
     this.progressCounter = document.querySelector("#progressCounter")
 
-    this.allMultiplicationsInit = this.generateMultiplicationTable();
+    this.allMultiplicationsInit = operation === 'division' ? this.generateDivisionTable() : this.generateMultiplicationTable();
     this.currentQuestionNumber = 1
 
-    const multiplications = this.allMultiplicationsInit.filter(m => m.result <= range);
+    // The largest number in the equation must fit in the range
+    const multiplications = this.allMultiplicationsInit.filter(m => Math.max(m.left, m.result) <= range);
     this.allMultiplications = multiplications;
     this.totalQuestionsCount = this.allMultiplications.length
 
@@ -82,7 +101,7 @@ class GameScreen {
 
   onAnswer = (isCorrect) => {
 
-    $("#equation").text(`${this.currentMultiplication.left} x ${this.currentMultiplication.right} = ${this.currentMultiplication.result}`);
+    $("#equation").text(`${this.currentMultiplication.left} ${this.currentMultiplication.operator} ${this.currentMultiplication.right} = ${this.currentMultiplication.result}`);
 
     this.currentQuestionNumber++;
 
@@ -135,7 +154,7 @@ class GameScreen {
       const multiplication = this.allMultiplications.pop();
 
       this.currentMultiplication = multiplication;
-      $("#equation").text(`${multiplication.left} x ${multiplication.right} =`);
+      $("#equation").text(`${multiplication.left} ${multiplication.operator} ${multiplication.right} =`);
       this.gameBtns.initRound(multiplication);
     }
   }
